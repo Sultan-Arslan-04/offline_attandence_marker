@@ -1,9 +1,10 @@
-name: Build APK
+name: Android CI
 
 on:
   push:
-    branches: [ main ]
-  workflow_dispatch:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
 
 jobs:
   build:
@@ -22,12 +23,14 @@ jobs:
     - name: ⬇️ Install Gradle
       uses: gradle/actions/setup-gradle@v3
 
+    - name: 🔓 Make gradlew executable
+      run: chmod +x ./gradlew
+
     - name: 🏗️ Build Debug APK
-      working-directory: main
-      run: gradle app:assembleDebug
+      run: ./gradlew assembleDebug
 
     - name: 📤 Upload APK Artifact
       uses: actions/upload-artifact@v4
       with:
         name: offline-attendance-apk
-        path: main/app/build/outputs/apk/debug/app-debug.apk
+        path: app/build/outputs/apk/debug/app-debug.apk
