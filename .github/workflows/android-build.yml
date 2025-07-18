@@ -13,7 +13,7 @@ jobs:
     - name: 📥 Checkout Repository
       uses: actions/checkout@v3
 
-    - name: 🧰 Set up JDK
+    - name: 🧰 Set up Java JDK
       uses: actions/setup-java@v3
       with:
         java-version: '17'
@@ -22,11 +22,11 @@ jobs:
     - name: ⬇️ Install Gradle
       uses: gradle/actions/setup-gradle@v3
 
-    - name: 🧱 Build with Gradle from /main
-      working-directory: ./main
-      run: gradle :app:assembleDebug
+    - name: 🏗️ Build Debug APK
+      working-directory: main
+      run: gradle app:assembleDebug
 
-    - name: 📤 Upload APK
+    - name: 📤 Upload APK Artifact
       uses: actions/upload-artifact@v4
       with:
         name: offline-attendance-apk
