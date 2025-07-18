@@ -7,7 +7,6 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -20,8 +19,11 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
+    - name: ⬇️ Install Gradle
+      uses: gradle/actions/setup-gradle@v3
+
     - name: 🧱 Build with Gradle
-      run: ./gradlew assembleDebug
+      run: gradle :app:assembleDebug
 
     - name: 📤 Upload APK
       uses: actions/upload-artifact@v4
